@@ -1,0 +1,56 @@
+\title{Linux audio basics and \texttt{sounddevice}}
+
+\maketitle
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+      \multicolumn{2}{c}{\href{https://en.wikipedia.org/wiki/List\_of\_Linux\_audio\_software}{Linux Audio Applications}} \\
+      \hline
+      \href{https://jackaudio.org/}{JACK} & \href{https://www.freedesktop.org/wiki/Software/PulseAudio/}{Pulse Audio} \\
+      \hline
+      \multicolumn{2}{c}{\href{https://www.alsa-project.org}{ALSA}} \\
+      \hline
+      \multicolumn{2}{c}{\href{https://www.alsa-project.org/wiki/Matrix:Main}{Sound hardware}} \\
+      \hline
+    \end{tabular}
+  \end{center}
+  \caption{The Linux Audio (problably partial) Stack.}
+  \label{fig:stack}
+\end{figure}
+
+\href{https://www.freedesktop.org/wiki/Software/PulseAudio/}{PulseAudio
+  is a sound server system for POSIX OSes, meaning that it is a proxy
+  for your sound applications. It is an integral part of all relevant
+  modern Linux distributions and is used in various mobile devices, by
+  multiple vendors. It performs advanced operations on sound data as
+  it passes between your application and hardware. Things like
+  transferring audio to a different machine, changing the sample
+  format or channel count, or mixing several sounds into one
+  input/output, are easily achieved using
+  PulseAudio.}~\cite{newmarch2017pulseaudio}
+
+Like ALSA, PulseAudio is dinamically configured using
+PulseAudio\href{https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/}{modules}. \texttt{\href{https://linux.die.net/man/1/pactl}{pactl}}
+is the command line tool for loading and downloading modules. For
+example, to use the equalizer
+\texttt{\href{https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Equalizer/}{qpaeq}}
+that should be already installed in your computer if you are using
+PulseAudio, run:
+
+\begin{verbatim}
+pactl load-module module-equalizer-sink
+pulseaudio --kill && pulseaudio --start
+qpaeq &
+\end{verbatim}
+% Ver también: pulseaudio-equalizer-ladspa
+
+Another important PulseAudio application is the
+\texttt{\href{https://freedesktop.org/software/pulseaudio/pavucontrol/}{pavcontrol}}
+that is a mixer/VU-meter that handles sound applications, input and
+output audio devices.
+
+\section{Resources}
+
+\bibliography{sound}

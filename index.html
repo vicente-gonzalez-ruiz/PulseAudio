@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" 
+"http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd" > 
+<html xmlns="http://www.w3.org/1999/xhtml"  
+> 
+<head><title>Linux audio basics and sounddevice</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="generator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<meta name="originator" content="TeX4ht (https://tug.org/tex4ht/)" /> 
+<!-- xhtml,mathml,html --> 
+<meta name="src" content="index.tex" /> 
+<link rel="stylesheet" type="text/css" href="index.css" /> 
+</head><body 
+>
+   <div class="maketitle">
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+
+<h2 class="titleHead">Linux audio basics and sounddevice</h2>
+ <div class="author" ><a 
+href="https://cms.ual.es/UAL/personas/persona.htm?id=515256515553484875" ><span 
+class="ecrm-1200">Vicente Gonz</span><span 
+class="ecrm-1200">&#x00E1;</span><span 
+class="ecrm-1200">lez Ruiz</span></a> <span 
+class="ecrm-1200">- </span><a 
+href="https://cms.ual.es/UAL/universidad/departamentos/informatica/index.htm" ><span 
+class="ecrm-1200">Depto Inform</span><span 
+class="ecrm-1200">&#x00E1;</span><span 
+class="ecrm-1200">tica</span></a> <span 
+class="ecrm-1200">- </span><a 
+href="https://www.ual.es" ><span 
+class="ecrm-1200">UAL</span></a></div><br />
+<div class="date" ><span 
+class="ecrm-1200">March 14, 2022</span></div>
+   </div>
+   <hr class="figure" /><div class="figure" 
+>
+                                                                  
+
+                                                                  
+                                                                  
+
+                                                                  
+<div class="center" 
+>
+<!--l. 6--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-2" class="tabular" 
+rules="groups" 
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1" /></colgroup><colgroup id="TBL-2-2g"><col 
+id="TBL-2-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td colspan="2" style="text-align:center; white-space:nowrap;" id="TBL-2-1-1"  
+class="td11"> <div class="multicolumn"  style="text-align:center; white-space:nowrap;"><a 
+href="https://en.wikipedia.org/wiki/List_of_Linux_audio_software" >Linux Audio Applications</a></div>
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="text-align:center; white-space:nowrap;" id="TBL-2-2-1"  
+class="td11"> <a 
+href="https://jackaudio.org/" >JACK</a>  </td><td  style="text-align:center; white-space:nowrap;" id="TBL-2-2-2"  
+class="td11">  <a 
+href="https://www.freedesktop.org/wiki/Software/PulseAudio/" >Pulse Audio</a>    </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-3-"><td colspan="2" style="text-align:center; white-space:nowrap;" id="TBL-2-3-1"  
+class="td11">          <div class="multicolumn"  style="text-align:center; white-space:nowrap;"><a 
+href="https://www.alsa-project.org" >ALSA</a></div>
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-4-"><td colspan="2" style="text-align:center; white-space:nowrap;" id="TBL-2-4-1"  
+class="td11">     <div class="multicolumn"  style="text-align:center; white-space:nowrap;"><a 
+href="https://www.alsa-project.org/wiki/Matrix:Main" >Sound hardware</a></div>
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-5-"><td  style="text-align:center; white-space:nowrap;" id="TBL-2-5-1"  
+class="td11">       </td></tr></table></div></div>
+<a 
+ id="x1-2r1"></a>
+<a 
+ id="x1-3"></a>
+<br />                                                                  <div class="caption" 
+><span class="id">
+Figure&#x00A0;1: </span><span  
+class="content">The Linux Audio &#x0028;problably partial&#x0029; Stack.
+</span></div><!--tex4ht:label?: x1-2r -->
+                                                                  
+
+                                                                  
+   </div><hr class="endfigure" />
+<!--l. 32--><p class="indent" >   <a 
+href="https://www.freedesktop.org/wiki/Software/PulseAudio/" >PulseAudio is a sound server system for POSIX OSes, meaning that it is a proxy
+for your sound applications. It is an integral part of all relevant modern Linux
+distributions and is used in various mobile devices, by multiple vendors. It performs
+advanced operations on sound data as it passes between your application and
+hardware. Things like transferring audio to a di&#xFB00;erent machine, changing the sample
+format or channel count, or mixing several sounds into one input/output, are easily
+achieved using PulseAudio.</a>&#x00A0;<span class="cite">&#x005B;<a 
+href="#Xnewmarch2017pulseaudio">1</a>&#x005D;</span>
+</p><!--l. 34--><p class="indent" >   Like ALSA, PulseAudio is dinamically con&#xFB01;gured using PulseAudio<a 
+href="https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/" >modules</a>.
+<a 
+href="https://linux.die.net/man/1/pactl" ><span 
+class="ectt-1000">pactl</span></a> is the command line tool for loading and downloading modules. For example,
+to use the equalizer <a 
+href="https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Equalizer/" ><span 
+class="ectt-1000">qpaeq</span></a> that should be already installed in your computer if you
+are using PulseAudio, run:
+                                                                  
+
+                                                                  
+</p>
+   <pre class="verbatim" id="verbatim-1">
+pactl&#x00A0;load-module&#x00A0;module-equalizer-sink
+pulseaudio&#x00A0;--kill&#x00A0;&#x0026;&#x0026;&#x00A0;pulseaudio&#x00A0;--start
+qpaeq&#x00A0;&#x0026;
+</pre>
+<!--l. 46--><p class="nopar" >
+</p><!--l. 49--><p class="indent" >   Another important PulseAudio application is the <a 
+href="https://freedesktop.org/software/pulseaudio/pavucontrol/" ><span 
+class="ectt-1000">pavcontrol</span></a> that is a
+mixer/VU-meter that handles sound applications, input and output audio
+devices.
+</p>
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Resources</h3>
+   <div class="thebibliography">
+   <p class="bibitem" ><span class="biblabel">
+ &#x005B;1&#x005D;<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="Xnewmarch2017pulseaudio"></a>Jan  Newmarch.   PulseAudio.   In  <span 
+class="ecti-1000">Linux  Sound  Programming</span>,  pages
+   61&#x2013;141. Springer, 2017.
+</p>
+   </div>
+<a 
+ id="Q1-1-3"></a>
+    
+</body></html> 
+
+                                                                  
+
+
